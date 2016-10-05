@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Part.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Part.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Battery.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Battery.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/willdarden/Desktop/objprog/Homework_5_Update_1/Auto/Date.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Robot.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Shop.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Shop.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Controller.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/willdarden/Desktop/objprog/Homework_5_Update_1/Auto/globals.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Main.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Controller.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:View.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:View.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Associate.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Associate.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Order.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/willdarden/Desktop/objprog/Homework_5_Update_1/Auto/Status.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Customer.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Customer.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Order.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Robot.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:std_lib_facilities.h">
+   </FileRef>
+   <FileRef
+      location = "group:Head.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Head.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Torso.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Torso.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Locomotor.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Arm.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Arm.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:Locomotor.hpp">
+   </FileRef>
+</Workspace>
