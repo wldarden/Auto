@@ -5,6 +5,9 @@
       location = "group:Part.cpp">
    </FileRef>
    <FileRef
+      location = "group:test_part.cpp">
+   </FileRef>
+   <FileRef
       location = "group:Part.hpp">
    </FileRef>
    <FileRef
