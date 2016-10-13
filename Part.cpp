@@ -32,8 +32,8 @@ string Part::get_description(){
 string Part::to_string(){
     string p = "Name       : " + name + "\n" +
     "Part Number: " + std::to_string(part_number) + "\n" +
-               "Weight     : " + std::to_string(weight) + "\n" +
-               "Cost       : " + std::to_string(cost) + "\n" +
-               "Description: " + description + "\n";
+    "Weight     : " + std::to_string(weight) + "\n" +
+    "Cost       : " + std::to_string(cost) + "\n" +
+    "Description: " + description + "\n";
     return p;
 }

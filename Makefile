@@ -4,7 +4,11 @@ CXXFLAGS = -g
 all: div main
 rebuild: div clean main
 main: Main.o Controller.o View.o Shop.o Robot.o Part.o Arm.o Battery.o Head.o Locomotor.o Torso.o Customer.o Associate.o Order.o
-	$(CXX) $(CXXFLAGS) Main.o Controller.o View.o Shop.o Robot.o Part.o Arm.o Battery.o Head.o Locomotor.o Torso.o Order.o Customer.o Associate.o   
+	$(CXX) $(CXXFLAGS) Main.o Controller.o View.o Shop.o Robot.o Part.o Arm.o Battery.o Head.o Locomotor.o Torso.o Order.o Customer.o Associate.o
+test_part: test_part.o Part.o
+	$(CXX) $(CXXFLAGS) test_part.o Part.o
+test_part.o: test_part.cpp part.hpp
+	$(CXX) $(CXXFLAGS) test_part.cpp   
 main.o: main.cpp Controller.hpp Shop.hpp
 	$(CXX) $(CXXFLAGS) -c Main.cpp
 Controller.o: Controller.cpp Controller.hpp View.o Shop.o Robot.o Associate.o Customer.o Order.o globals.hpp Date.hpp Status.hpp

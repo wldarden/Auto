@@ -27,6 +27,7 @@ public:
         weight = w;
         cost = c;
         description = d;
+        
     }
     
     //getters

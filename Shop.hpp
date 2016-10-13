@@ -38,6 +38,7 @@ public:
     Associate get_associate(int i);
     vector<Order> get_orders();
     vector<Part> get_parts();
+    vector<Robot> get_models();
     int get_nparts();
     int get_norders();
 };

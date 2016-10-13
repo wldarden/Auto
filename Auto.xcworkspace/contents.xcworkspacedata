@@ -5,6 +5,9 @@
       location = "group:Part.cpp">
    </FileRef>
    <FileRef
+      location = "group:/Users/willdarden/Desktop/objprog/Homework_5_Update_1/Auto/PartType.hpp">
+   </FileRef>
+   <FileRef
       location = "group:test_part.cpp">
    </FileRef>
    <FileRef

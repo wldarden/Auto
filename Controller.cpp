@@ -98,8 +98,7 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                         //create customer
                         string c_name;
                         cout << "Customer's Name: ";
-                        cin >> c_name;
-                        cin.ignore();
+                        getline(cin,c_name);
                         shop.add_customer(c_name);
                         c = shop.get_customer((shop.get_customers()).size());
                     }
@@ -122,8 +121,7 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                         //create associate
                         string a_name;
                         cout << "Associate's Name: ";
-                        cin >> a_name;
-                        cin.ignore();
+                        getline(cin,a_name);
                         shop.add_associate(a_name);
                         a = shop.get_associate((shop.get_associates()).size());
                     }
@@ -133,8 +131,7 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                     //create customer
                     string c_name;
                     cout << "Customer's Name: ";
-                    cin >> c_name;
-                    cin.ignore();
+                    getline(cin,c_name);
                     shop.add_customer(c_name);
                     return MAIN;
                 }
@@ -142,21 +139,13 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                     //create sales associate
                     string a_name;
                     cout << "Associates's Name: ";
-                    cin >> a_name;
-                    cin.ignore();
+                    getline(cin,a_name);
                     shop.add_customer(a_name);
                     return MAIN;
                 }
                 case(4):{
                     //create model
-                    string name;
-                    double price;
-                    cout << "Model Name: ";
-                    cin >> name;
-                    cin.ignore();
-                    cout << "Price: ";
-                    cin >> price;
-                    cin.ignore();
+                    create_model();
                     return MAIN;
                 }
                 case(5):{
@@ -239,10 +228,40 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                 }
                 case(4):{
                     //robot models
+                    cout << "Robot Model Reports \n";
+                    cout << "-------------\n";
+                    cout << "[1] List all Models \n";
+                    cin >> cmd;
+                    cin.ignore();
+                    switch(cmd){
+                        case(1): {
+                            vector<string> s;
+                            for(Part c:shop.get_parts()){
+                                s.push_back(c.to_string());
+                            }
+                            view.show_list(s);
+                            break;
+                        }
+                    }
                     return REPORT;
                 }
                 case(5):{
                     //Robot parts
+                    cout << "Robot Component Reports \n";
+                    cout << "-------------\n";
+                    cout << "[1] List all Components \n";
+                    cin >> cmd;
+                    cin.ignore();
+                    switch(cmd){
+                        case(1): {
+                            vector<string> s;
+                            for(Part c:shop.get_parts()){
+                                s.push_back(c.to_string());
+                            }
+                            view.show_list(s);
+                            break;
+                        }
+                    }
                     return REPORT;
                 }
             }
@@ -253,14 +272,14 @@ Menu Controller::execute_cmd(int cmd,Menu men){
 }
 
 void Controller::create_part(){
+    string input;
     string name, desc;
     double weight, cost;
     int part_type, id;
     
     cout << "Creating new part\n";
     cout << "Part Name: ";
-    cin >> name;
-    cin.ignore();
+    getline(cin,name );
     cout << "Part Number: ";
     cin >> id;
     cin.ignore();
@@ -271,8 +290,7 @@ void Controller::create_part(){
     cin >> cost;
     cin.ignore();
     cout << "Part description: ";
-    cin >> desc;
-    cin.ignore();
+    getline(cin,desc);
     cout << "Part type:\n";
     cout << "[1] Arm\n";
     cout << "[2] Battery\n";
@@ -323,8 +341,30 @@ void Controller::create_part(){
     }
 }
 
-void Controller::create_model(){
+void Controller::create_model(string n, double p){
+    //create model
+    string name;
+    double price;
+    cout << "Model Name: ";
+    getline(cin,name);
+    cout << "Price: ";
+    cin >> price;
+    cin.ignore();
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

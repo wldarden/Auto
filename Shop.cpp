@@ -53,12 +53,20 @@ Associate Shop::get_associate(int i){
     }
 }
 
-vector<Part> Shop::get_parts(){
+vector<Part> Shop::get_parts(int type){
+    //{ALL=0, ARM=1, BATTERY=2, HEAD=3, LOCOMOTOR=4, TORSO=5}
+    switch(type){
+        case(0):return parts;
+    }
     return parts;
 }
 
 vector<Order> Shop::get_orders(){
     return orders;
+}
+
+vector<Robot> get_models(){
+    return robot_models;
 }
 
 int Shop::get_nparts(){

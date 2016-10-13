@@ -75,9 +75,5 @@ void View::show_list(vector<string> obj){
         cout << std::to_string(i) << s << endl;
     }
     cout << "----END ----\n";
-    int cmd;
-    cout << "Enter 1 to continue.\n";
-    cin >> cmd;
-    cin.ignore();
 }
 
