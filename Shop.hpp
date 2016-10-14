@@ -15,6 +15,7 @@
 #include "Associate.hpp"
 #include "Part.hpp"
 #include "Order.hpp"
+#include "PartType.hpp"
 
 class Shop{
 private:
@@ -37,7 +38,7 @@ public:
     vector<Associate> get_associates();
     Associate get_associate(int i);
     vector<Order> get_orders();
-    vector<Part> get_parts();
+    vector<Part> get_parts(PartType t);
     vector<Robot> get_models();
     int get_nparts();
     int get_norders();

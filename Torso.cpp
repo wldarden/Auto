@@ -36,3 +36,11 @@ void Torso::add_battery(Battery b){
         batteries.push_back(b);
     }
 }
+
+int Torso::get_max_batteries(){
+    return battery_compartments;
+}
+
+int Torso::get_nbatteries(){
+    return batteries.size();
+}

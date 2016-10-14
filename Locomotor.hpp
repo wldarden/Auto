@@ -18,7 +18,7 @@ private:
     
 public:
     //constructors
-    Locomotor(string n, int p_num, double w, double c, string d, int ms) : max_speed(ms), Part(n,p_num,w,c,d) {}
+    Locomotor(string n, int p_num, PartType t,double w, double c, string d, int ms) : max_speed(ms), Part(n,p_num,t,w,c,d) {}
     
     //methods
     int power_consumed(int speed);

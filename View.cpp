@@ -72,7 +72,7 @@ void View::show_list(vector<string> obj){
     cout << "----LIST----\n";
     for(String s:obj){
         i++;
-        cout << std::to_string(i) << s << endl;
+        cout << "[" << std::to_string(i) << "] " << s << endl;
     }
     cout << "----END ----\n";
 }

@@ -7,6 +7,7 @@
 //
 
 #include "Locomotor.hpp"
+#include "PartType.hpp"
 
 int Locomotor::power_consumed(int speed){
     if(speed > 0 && speed <= max_speed){

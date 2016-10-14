@@ -8,6 +8,7 @@
 
 #include "Shop.hpp"
 #include "std_lib_facilities.h"
+#include "PartType.hpp"
 
 void Shop::add_model(Robot r){
     robot_models.push_back(r);
@@ -53,19 +54,26 @@ Associate Shop::get_associate(int i){
     }
 }
 
-vector<Part> Shop::get_parts(int type){
+vector<Part> Shop::get_parts(PartType t){
     //{ALL=0, ARM=1, BATTERY=2, HEAD=3, LOCOMOTOR=4, TORSO=5}
-    switch(type){
-        case(0):return parts;
+    vector<Part> x;//x is the return vector of desired parts
+    if(t.get_value() == 0){
+        return parts;
+    } else {
+        for(Part p:parts){
+            if((p.get_type()).get_value() == t.get_value()){
+                x.push_back(p);
+            }
+        }
+        return x;
     }
-    return parts;
 }
 
 vector<Order> Shop::get_orders(){
     return orders;
 }
 
-vector<Robot> get_models(){
+vector<Robot> Shop::get_models(){
     return robot_models;
 }
 

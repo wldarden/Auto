@@ -10,13 +10,14 @@
 #define Arm_hpp
 
 #include "Part.hpp"
+#include "PartType.hpp"
 
 class Arm : public Part{
 private:
     
 public:
     //constructors
-    Arm(string n, int p_num, double w, double c, string d) :  Part(n,p_num,w,c,d) {}
+    Arm(string n, int p_num, PartType t, double w, double c, string d) :  Part(n,p_num,t,w,c,d) {}
     
     //methods
     int power_consumed(int speed);
