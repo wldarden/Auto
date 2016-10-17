@@ -17,7 +17,7 @@ private:
     string name;
     int model_number;
     double price;
-    vector<Part> parts;
+    vector<Part*> parts;
 
 public:
     //constructors
@@ -29,11 +29,11 @@ public:
     string get_name();
     int get_model_number();
     double get_price();
-    vector<Part> get_parts();
+    vector<Part*> get_parts();
     
     //methods
     string to_string();
-    void add_part(Part p);
+    void add_part(Part* p);
     void remove_part();
     
 };

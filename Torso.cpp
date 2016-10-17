@@ -13,11 +13,11 @@
 #include "std_lib_facilities.h"
 #include "Arm.hpp"
 
-void Torso::add_head(Head h){
+void Torso::add_head(Head* h){
     head = h;
 }
 
-void Torso::add_arm(Arm a){
+void Torso::add_arm(Arm* a){
     if(arms.size() >= 2){
         //throw too many arms exception
     } else {
@@ -25,11 +25,11 @@ void Torso::add_arm(Arm a){
     }
 }
 
-void Torso::add_locomotor(Locomotor l){
+void Torso::add_locomotor(Locomotor* l){
     locomotor = l;
 }
 
-void Torso::add_battery(Battery b){
+void Torso::add_battery(Battery* b){
     if(batteries.size() >= battery_compartments){
         //throw too many batteries exception
     } else {

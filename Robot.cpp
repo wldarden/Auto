@@ -23,13 +23,13 @@ int Robot::get_model_number(){
 
 double Robot::get_price(){
     price = 0;
-    for(Part p:parts){
-        price += p.get_cost();
+    for(Part* p:parts){
+        price += p->get_cost();
     }
     return price;
 }
 
-vector<Part> Robot::get_parts(){
+vector<Part*> Robot::get_parts(){
     return parts;
 }
 
@@ -37,7 +37,7 @@ vector<Part> Robot::get_parts(){
 string Robot::to_string(){
     return get_name();
 }
-void Robot::add_part(Part p){
+void Robot::add_part(Part* p){
     parts.push_back(p);
 }
 

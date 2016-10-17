@@ -1,0 +1,84 @@
+1
+5
+Head01
+1
+20.000000
+100.000000
+a big stupid looking head. really quite dumb
+3
+1
+5
+Armageddon
+333
+5.000000
+150.000000
+Super-dooper pooper-scooper
+1
+1
+5
+Mr. T
+55
+10.000000
+900.000000
+gold chains? check. 
+5
+3
+1
+5
+Bat
+100
+20.000000
+300.000000
+severe shock warning
+2
+100.000000
+1
+5
+Loco-motor
+69
+8.000000
+3.500000
+Itsa crazy!
+4
+100
+2
+5
+1
+0
+1
+4
+Megatron
+555
+10000
+1
+1
+1
+1
+1
+-1
+1
+2
+4
+1
+0
+1
+1
+2016
+8
+5
+0
+Dad
+0
+Will Darden
+1
+2
+1
+1
+1
+0
+5
+0
+0
+5
+
+

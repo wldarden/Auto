@@ -67,6 +67,7 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                     int day,month,year;
                     Customer c;
                     Associate a;
+                    Robot* r;
                     Status status(0);
                     int choice =-1;
                     
@@ -101,7 +102,7 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                         cout << "Customer's Name: ";
                         getline(cin,c_name);
                         shop.add_customer(c_name);
-                        c = shop.get_customer((shop.get_customers()).size());
+                        c = shop.get_customer((shop.get_customers()).size()-1);
                     }
                     
                     //create or get associate
@@ -124,8 +125,28 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                         cout << "Associate's Name: ";
                         getline(cin,a_name);
                         shop.add_associate(a_name);
-                        a = shop.get_associate((shop.get_associates()).size());
+                        a = shop.get_associate((shop.get_associates()).size()-1);
                     }
+                    
+                    //get robot model to order
+                    cout << "Select Robot Model:\n";
+                    vector<string> s;
+                    for(Robot* r:shop.get_models()){
+                        s.push_back(r->to_string());
+                    }
+                    if(s.size() == 0){
+                        cout << "No Robot Models defined yet!\n";
+                        return CREATE;
+                    }
+                    view.show_list(s);
+                    cout << "Enter desired menu number: ";
+                    cout << "Here\n";
+                    cin >> choice;
+                    cin.ignore();
+                    r = (shop.get_models())[choice-1];
+                    cout << "Here2\n";
+                    shop.add_order(d,c,r,a);
+                    cout << "Here3\n";
                     return MAIN;
                 }
                 case(2):{
@@ -141,7 +162,7 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                     string a_name;
                     cout << "Associates's Name: ";
                     getline(cin,a_name);
-                    shop.add_customer(a_name);
+                    shop.add_associate(a_name);
                     return MAIN;
                 }
                 case(4):{
@@ -170,17 +191,17 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                     switch(cmd){
                         case(1): {
                             vector<string> s;
-                            for(Order o:shop.get_orders()){
-                                s.push_back(o.to_string());
+                            for(Order* o:shop.get_orders()){
+                                s.push_back(o->to_string());
                             }
                             view.show_list(s);
                             break;
                         }
                         case(2):{
                             vector<string> s;
-                            for(Order o:shop.get_orders()){
-                                if(o.get_status().get_value() == 0){
-                                    s.push_back(o.to_string());
+                            for(Order* o:shop.get_orders()){
+                                if(o->get_status().get_value() == 0){
+                                    s.push_back(o->to_string());
                                 }
                             }
                             view.show_list(s);
@@ -237,8 +258,8 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                     switch(cmd){
                         case(1): {
                             vector<string> s;
-                            for(Robot r:shop.get_models()){
-                                s.push_back(r.to_string());
+                            for(Robot* r:shop.get_models()){
+                                s.push_back(r->to_string());
                             }
                             view.show_list(s);
                             break;
@@ -256,8 +277,8 @@ Menu Controller::execute_cmd(int cmd,Menu men){
                     switch(cmd){
                         case(1): {
                             vector<string> s;
-                            for(Part c:shop.get_parts(0)){
-                                s.push_back(c.to_string());
+                            for(Part* c:shop.get_parts(0)){
+                                s.push_back(c->to_string());
                             }
                             view.show_list(s);
                             break;
@@ -305,7 +326,7 @@ void Controller::create_part(){
     switch(part_type){
         case(1):{
             //Arm
-            shop.add_part(Arm(name,id,type,weight,cost,desc));
+            shop.add_part(new Arm(name,id,type,weight,cost,desc));
             break;
         }
         case(2):{
@@ -314,12 +335,12 @@ void Controller::create_part(){
             cout << "Battery max power :";
             cin >> max_power;
             cin.ignore();
-            shop.add_part(Battery(name,id,type,weight,cost,desc,max_power));
+            shop.add_part(new Battery(name,id,type,weight,cost,desc,max_power));
             break;
         }
         case(3):{
             //head
-            shop.add_part(Head(name,id,type,weight,cost,desc));
+            shop.add_part(new Head(name,id,type,weight,cost,desc));
             break;
         }
         case(4):{
@@ -328,7 +349,7 @@ void Controller::create_part(){
             cout << "Locomotor max speed: ";
             cin >> max_speed;
             cin.ignore();
-            shop.add_part(Locomotor(name,id,type,weight,cost,desc,max_speed));
+            shop.add_part(new Locomotor(name,id,type,weight,cost,desc,max_speed));
             break;
         }
         case(5):{
@@ -337,7 +358,7 @@ void Controller::create_part(){
             cout << "Number of Battery Compartments: ";
             cin >> bat_comp;
             cin.ignore();
-            shop.add_part(Torso(name,id,type,weight,cost,desc,bat_comp));
+            shop.add_part(new Torso(name,id,type,weight,cost,desc,bat_comp));
             break;
         }
     }
@@ -358,80 +379,80 @@ void Controller::create_model(){
     cout << "Price: ";
     cin >> price;
     cin.ignore();
-    Robot r(name,mn,price);
+    Robot* r = new Robot(name,mn,price);
     cout << "Select Torso:\n";
-    for(Part p:shop.get_parts(type.torso)){
-        s.push_back(p.to_string());
+    for(Part* p:shop.get_parts(type.torso)){
+        s.push_back(p->to_string());
     }
     view.show_list(s);
     s.clear();
     cout << "Enter desired menu number: ";
     cin >> cmd;
-    Torso t = (shop.get_parts(type.torso))[cmd];
-    r.add_part(t);
+    Torso* t = dynamic_cast<Torso *>((shop.get_parts(type.torso))[cmd-1]);
+    r->add_part(t);
     
     cout << "select Head:\n";
-    for(Part p:shop.get_parts(type.head)){
-        s.push_back(p.to_string());
+    for(Part* p:shop.get_parts(type.head)){
+        s.push_back(p->to_string());
     }
     view.show_list(s);
     s.clear();
     cout << "Enter desired menu number: ";
     cin >> cmd;
-    Part h = (shop.get_parts(type.head))[cmd];
-    r.add_part(h);
-    t.add_head(h);
+    Head* h = dynamic_cast<Head *>((shop.get_parts(type.head))[cmd-1]);
+    r->add_part(h);
+    t->add_head(h);
     
     cout << "select Arm:\n";
-    for(Part p:shop.get_parts(type.arm)){
-        s.push_back(p.to_string());
+    for(Part* p:shop.get_parts(type.arm)){
+        s.push_back(p->to_string());
     }
     view.show_list(s);
     cout << "Enter desired menu number: ";
     cin >> cmd;
-    Part a = (shop.get_parts(type.arm))[cmd];
-    r.add_part(a);
-    t.add_arm(a);
+    Arm* a = dynamic_cast<Arm *>((shop.get_parts(type.arm))[cmd-1]);
+    r->add_part(a);
+    t->add_arm(a);
     
     cout << "select Arm 2:\n";
     view.show_list(s);
     s.clear();
     cout << "Enter desired menu number: ";
     cin >> cmd;
-    Part a2 = (shop.get_parts(type.arm))[cmd];
-    r.add_part(a2);
-    t.add_arm(a2);
+    Arm* a2 = dynamic_cast<Arm *>((shop.get_parts(type.arm))[cmd-1]);
+    r->add_part(a2);
+    t->add_arm(a2);
     
-    while(cmd != -1 || (t.get_max_batteries()-t.get_nbatteries()) != 0){
-        cout << "Chosen torso has " << std::to_string(t.get_max_batteries()-t.get_nbatteries()) << " battery compartments open.\n";
+    while(cmd != -1 && (t->get_max_batteries()-t->get_nbatteries()) != 0){
+        cout << "Chosen torso has " << std::to_string(t->get_max_batteries()-t->get_nbatteries()) << " battery compartments open.\n";
         cout << "select Battery:\n";
-        for(Part p:shop.get_parts(type.head)){
-            s.push_back(p.to_string());
+        for(Part* p:shop.get_parts(type.battery)){
+            s.push_back(p->to_string());
         }
         view.show_list(s);
         s.clear();
         cout << "Enter desired menu number, or -1 to stop adding batteries: ";
         cin >> cmd;
-        Part b = (shop.get_parts(type.battery))[cmd];
-        r.add_part(b);
-        t.add_battery(b);
+        if(cmd != -1){
+            Battery* b = dynamic_cast<Battery *>((shop.get_parts(type.battery))[cmd-1]);
+            r->add_part(b);
+            t->add_battery(b);
+        }
     }
     
     cout << "select Locomotor:\n";
-    for(Part p:shop.get_parts(type.locomotor)){
-        s.push_back(p.to_string());
+    for(Part* p:shop.get_parts(type.locomotor)){
+        s.push_back(p->to_string());
     }
     view.show_list(s);
     s.clear();
     cout << "Enter desired menu number: ";
     cin >> cmd;
-    Part l = (shop.get_parts(type.locomotor))[cmd];
-    r.add_part(l);
-    t.add_locomotor(l);
-    
+    Locomotor* l = dynamic_cast<Locomotor *>((shop.get_parts(type.locomotor))[cmd-1]);
+    r->add_part(l);
+    t->add_locomotor(l);
     shop.add_model(r);
 }
-
 
 
 

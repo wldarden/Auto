@@ -10,7 +10,7 @@
 #include "std_lib_facilities.h"
 #include "PartType.hpp"
 
-void Shop::add_model(Robot r){
+void Shop::add_model(Robot* r){
     robot_models.push_back(r);
 }
 
@@ -22,11 +22,12 @@ void Shop::add_associate(string n){
     associates.push_back(Associate(n,associates.size()+1));
 }
 
-void Shop::add_part(Part p){
+void Shop::add_part(Part* p){
     parts.push_back(p);
 }
 
-void Shop::add_order(Order o){
+void Shop::add_order(Date d, Customer c, Robot* r, Associate a){
+    Order* o = new Order(orders.size()+1,d,c,r,a);
     orders.push_back(o);
 }
 
@@ -54,14 +55,14 @@ Associate Shop::get_associate(int i){
     }
 }
 
-vector<Part> Shop::get_parts(PartType t){
+vector<Part *> Shop::get_parts(PartType t){
     //{ALL=0, ARM=1, BATTERY=2, HEAD=3, LOCOMOTOR=4, TORSO=5}
-    vector<Part> x;//x is the return vector of desired parts
+    vector<Part*> x;//x is the return vector of desired parts
     if(t.get_value() == 0){
         return parts;
     } else {
-        for(Part p:parts){
-            if((p.get_type()).get_value() == t.get_value()){
+        for(Part* p:parts){
+            if((p->get_type()).get_value() == t.get_value()){
                 x.push_back(p);
             }
         }
@@ -69,11 +70,11 @@ vector<Part> Shop::get_parts(PartType t){
     }
 }
 
-vector<Order> Shop::get_orders(){
+vector<Order*> Shop::get_orders(){
     return orders;
 }
 
-vector<Robot> Shop::get_models(){
+vector<Robot*> Shop::get_models(){
     return robot_models;
 }
 

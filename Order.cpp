@@ -27,7 +27,7 @@ Customer Order::get_customer(){
     return customer;
 }
 
-Robot Order::get_robot(){
+Robot* Order::get_robot(){
     return robot;
 }
 
@@ -40,11 +40,12 @@ Status Order::get_status(){
 }
 
 double Order::get_total(){
-    return robot.get_price();
+    return robot->get_price();
 }
 
 string Order::to_string(){
-    string s = "Order Number: " + std::to_string(number) + " Date: " + date.to_string() + "\n" + " Associate: " + associate.get_name() + " Customer: " + customer.get_name() + "\n" + "Robot: \n" + robot.to_string() + "\n" + "Status: " + status.to_string();
+    string s = "Order Number: " + std::to_string(number) + " Date: " + date.to_string() + "\n" + " Associate: " + associate.get_name() + " Customer: " + customer.get_name() + "\n" + "Robot: \n" + robot->to_string() + "\n" + "Status: " + status.to_string();
+    return s;
 }
 
 //setters

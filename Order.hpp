@@ -24,13 +24,13 @@ private:
     int number;
     Date date;
     Customer customer;
-    Robot robot;
+    Robot* robot;
     Associate associate;
     Status status;
     
 public:
     //constructors
-    Order(int n,Date d, Customer c, Robot r, Associate a): number(n), date(d), customer(c), robot(r), associate(a) {
+    Order(int n,Date d, Customer c, Robot* r, Associate a): number(n), date(d), customer(c), robot(r), associate(a) {
         status.set_value(0);
     }
     
@@ -38,7 +38,7 @@ public:
     int get_number();
     Date get_date();
     Customer get_customer();
-    Robot get_robot();
+    Robot* get_robot();
     Associate get_associate();
     Status get_status();
     string to_string();

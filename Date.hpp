@@ -70,6 +70,7 @@ public:
             case(dec): m = "December";
         }
         m = m + " " + std::to_string(day) + ", " + std::to_string(year);
+        return m;
     }
     
     
