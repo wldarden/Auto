@@ -35,6 +35,9 @@
       location = "group:Controller.cpp">
    </FileRef>
    <FileRef
+      location = "group:MainGUI.cpp">
+   </FileRef>
+   <FileRef
       location = "group:/Users/willdarden/Desktop/objprog/Homework_5_Update_1/Auto/globals.hpp">
    </FileRef>
    <FileRef
