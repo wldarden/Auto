@@ -2,8 +2,5 @@
 					  Auto Guide
 				*******************************
 
-The Main menu presents 
-
-- When presented with a menu, enter the number next to the desired menu choice and press enter.
-- Sometimes specific information is requested, such as a name or description. In this case enter the requested information and press enter.
+Auto Guide uses the principle of least astonishment in everything but the guide so it should be self-explanatory other than this part.
  

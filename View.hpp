@@ -18,7 +18,7 @@ public:
     View(Shop& s): shop(s) {}
     
     //methods
-    void show_menu(Menu men);//Menu enumerated in globals
+    void show_menu(Menu men);
     void show_list(vector<string> obj);
     
 private:
