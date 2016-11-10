@@ -17,13 +17,16 @@
 using namespace std;
 
 //Create Button CallBacks
-void CcB_CB(Fl_Widget* w, void* p)
+void create_CB(Fl_Widget* w, void* buttonID)
 {
      fprintf(stderr, "Button works!\n");
 }
 
 //Report Button CallBacks
-
+void report_CB(Fl_Widget* w, void* buttonID)
+{
+     fprintf(stderr, "Button worasdfasdfreportfailks!\n");
+}
 
 int main(){
     const int WIDTH = 1020;
@@ -36,25 +39,25 @@ int main(){
     CcB->box(FL_UP_BOX);
     CcB->labelfont(FL_BOLD+FL_ITALIC);
     CcB->labelsize(18);
-    CcB->callback(CcB_CB);
+    CcB->callback(create_CB,(void*) 0);
 
     Fl_Button *CsaB = new Fl_Button(10, 10+((HEIGHT-20)/nCreateButtons)*1,(WIDTH-20)/3,((HEIGHT-20)/nCreateButtons),"Create Sales Associate");
     CsaB->box(FL_UP_BOX);
     CsaB->labelfont(FL_BOLD+FL_ITALIC);
     CsaB->labelsize(18);
-    CcB->callback(CcB_CB);
+    CcB->callback(create_CB,(void*) 1);
 
     Fl_Button *CpB = new Fl_Button(10, 10+((HEIGHT-20)/nCreateButtons)*2,(WIDTH-20)/3,((HEIGHT-20)/nCreateButtons),"Create Part");
     CpB->box(FL_UP_BOX);
     CpB->labelfont(FL_BOLD+FL_ITALIC);
     CpB->labelsize(18);
-    CcB->callback(CcB_CB);
+    CcB->callback(create_CB,(void*) 2);
 
     Fl_Button *CoB = new Fl_Button(10, 10+((HEIGHT-20)/nCreateButtons)*3,(WIDTH-20)/3,((HEIGHT-20)/nCreateButtons),"Create Order");
     CoB->box(FL_UP_BOX);
     CoB->labelfont(FL_BOLD+FL_ITALIC);
     CoB->labelsize(18);
-    CcB->callback(CcB_CB);
+    CcB->callback(create_CB,(void*) 3);
 
     //Make Report Buttons
     int nReportButtons = 5;
@@ -62,26 +65,26 @@ int main(){
     RcB->box(FL_UP_BOX);
     RcB->labelfont(FL_BOLD+FL_ITALIC);
     RcB->labelsize(18);
-    CcB->callback(CcB_CB);
+    CcB->callback(report_CB,(void*) 0);
 
     Fl_Button *RsaB = new Fl_Button(10+((WIDTH-20)/3)*2, 10+((HEIGHT-20)/nReportButtons)*1,(WIDTH-20)/3,((HEIGHT-20)/nReportButtons),"Sales Associate Reports");
     RsaB->box(FL_UP_BOX);
     RsaB->labelfont(FL_BOLD+FL_ITALIC);
     RsaB->labelsize(18);
-    CcB->callback(CcB_CB);
+    CcB->callback(report_CB,(void*) 1);
 
     Fl_Button *RpB = new Fl_Button(10+((WIDTH-20)/3)*2, 10+((HEIGHT-20)/nReportButtons)*2,(WIDTH-20)/3,((HEIGHT-20)/nReportButtons),"Part Reports");
     RpB->box(FL_UP_BOX);
     RpB->labelfont(FL_BOLD+FL_ITALIC);
     RpB->labelsize(18);
-    CcB->callback(CcB_CB);
+    CcB->callback(report_CB,(void*) 2);
 
     Fl_Button *RoB = new Fl_Button(10+((WIDTH-20)/3)*2, 10+((HEIGHT-20)/nReportButtons)*3,(WIDTH-20)/3,((HEIGHT-20)/nReportButtons),"Order Reports");
     RoB->box(FL_UP_BOX);
     RoB->labelfont(FL_BOLD+FL_ITALIC);
     RoB->labelsize(18);
-    CcB->callback(CcB_CB);
-    
+    CcB->callback(report_CB,(void*) 3);
+
     win->end();
     win->show();
 
