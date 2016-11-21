@@ -1,14 +1,17 @@
 //
 //  Date.hpp
-//  
+//
 //
 //  Created by Will Darden on 10/3/16.
 //
 //
 
+
+
 #ifndef Date_hpp
 #define Date_hpp
-
+#include <stdlib.h>
+using namespace std;
 class Date{
 private:
 
@@ -21,18 +24,18 @@ public:
         if(m > 12 || m < 0){
             //throw bad month;
         }
-        
+
         //check days
         if(d > get_ndays(m-1) || d < 0){
             //throw bad day;
         }
-        
+
         //check year
         if(y > 3000 || y < 1900){
             //throw bad year;
         }
     }
-    
+
     //months
     static const int jan = 1;
     static const int feb = 2;
@@ -46,13 +49,13 @@ public:
     static const int oct = 10;
     static const int nov = 11;
     static const int dec = 12;
-    
+
     //days in each month
     int get_ndays(int month){
         const int ndays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30,31,30,31};
         return ndays[month-1];
     }
-    
+
     string to_string(){
         string m;
         switch(month){
@@ -72,8 +75,8 @@ public:
         m = m + " " + std::to_string(day) + ", " + std::to_string(year);
         return m;
     }
-    
-    
+
+
 };
 
 #endif /* Date_hpp */
