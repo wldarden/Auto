@@ -308,6 +308,7 @@ void reportPart_CB(Fl_Widget* wi, void* q){
         Battery* b = (Battery*) p;
         max_power = to_string(b->get_max_power());//.to_string();
         batPowerInput->value(max_power.c_str());
+        batPowerInput->show();
         break;
     }
     case(4):{
@@ -315,6 +316,7 @@ void reportPart_CB(Fl_Widget* wi, void* q){
         Locomotor* l = (Locomotor*) p;
         max_speed = to_string(l->get_max_speed());//.to_string();
         maxSpeedInput->value(max_speed.c_str());
+        maxSpeedInput->show();
         break;
     }
     case(5):{
@@ -322,6 +324,7 @@ void reportPart_CB(Fl_Widget* wi, void* q){
         Torso* t = (Torso*) p;
         bat_comp = to_string(t->get_max_batteries());//.to_string();
         batCompartmentsInput->value(bat_comp.c_str());
+        batCompartmentsInput->show();
         break;
     }
   }
