@@ -1,6 +1,6 @@
 //
 //  Locomotor.cpp
-//  
+//
 //
 //  Created by Will Darden on 10/2/16.
 //
@@ -20,4 +20,8 @@ int Locomotor::power_consumed(int speed){
         cout << "Locomotor::power_consumed() returning dummy value\n";
         return 1000;
     }
+}
+
+double Locomotor::get_max_speed(){
+  return max_speed;
 }

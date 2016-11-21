@@ -1,6 +1,6 @@
 //
 //  Part.cpp
-//  
+//
 //
 //  Created by Will Darden on 10/1/16.
 //
@@ -8,6 +8,7 @@
 
 #include "Part.hpp"
 #include "PartType.hpp"
+#include "std_lib_facilities.h"
 
 string Part::get_name(){
     return name;

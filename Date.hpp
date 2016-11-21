@@ -10,8 +10,9 @@
 
 #ifndef Date_hpp
 #define Date_hpp
-#include <stdlib.h>
-using namespace std;
+
+#include "std_lib_facilities.h"
+
 class Date{
 private:
 

@@ -1,13 +1,12 @@
 //
 //  Shop.cpp
-//  
+//
 //
 //  Created by Will Darden on 10/2/16.
 //
 //
 
 #include "Shop.hpp"
-#include "std_lib_facilities.h"
 #include "PartType.hpp"
 
 void Shop::add_model(Robot* r){
@@ -15,11 +14,11 @@ void Shop::add_model(Robot* r){
 }
 
 void Shop::add_customer(string n){
-    customers.push_back(Customer(n,customers.size()+1));
+    customers.push_back(new Customer(n,customers.size()+1));
 }
 
 void Shop::add_associate(string n){
-    associates.push_back(Associate(n,associates.size()+1));
+    associates.push_back(new Associate(n,associates.size()+1));
 }
 
 void Shop::add_part(Part* p){
@@ -31,27 +30,27 @@ void Shop::add_order(Date d, Customer c, Robot* r, Associate a){
     orders.push_back(o);
 }
 
-vector<Customer> Shop::get_customers(){
+vector<Customer*> Shop::get_customers(){
     return customers;
 }
 
-Customer Shop::get_customer(int i){
+Customer* Shop::get_customer(int i){
     if(i < 0 || i > customers.size()){
         //throw out of bounds error
     } else {
-        return customers[i];
+        return (customers[i]);
     }
 }
 
-vector<Associate> Shop::get_associates(){
+vector<Associate*> Shop::get_associates(){
     return associates;
 }
 
-Associate Shop::get_associate(int i){
+Associate* Shop::get_associate(int i){
     if(i < 0 || i > associates.size()){
         //throw out of bounds error
     } else {
-        return associates[i];
+        return (associates[i]);
     }
 }
 
