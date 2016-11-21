@@ -54,13 +54,16 @@ Fl_Menu_Bar *menu = new Fl_Menu_Bar(0,0,win->w(),25);
 Shop shop;
 
 
-/////////////Create Part Widgets
+
 // group list
 list<Fl_Widget*> allWidgets;
 list<Fl_Widget*> cPartView;
 list<Fl_Widget*> cPartInputs;
 list<Fl_Widget*> activeInputs;
+list<Fl_Widget*> cCustInputs;
+list<Fl_Widget*> cSAInputs;
 
+/////////////Create Part Widgets
 //group drawing zero
 int x = 100;
 int y = 100;
@@ -70,7 +73,7 @@ Fl_Input *pNumInput = new Fl_Input(x,y+30,200,20,"Part Number");
 Fl_Int_Input *weightInput = new Fl_Int_Input(x,y+60,200,20,"Weight");
 Fl_Int_Input *costInput = new Fl_Int_Input(x,y+90,200,20,"Cost");
 Fl_Input *descInput = new Fl_Input(x,y+120,200,20,"Description");
-Fl_Button *saveButton = new Fl_Button(x+150,y+150,50,30,"Enter");
+Fl_Button *saveButton = new Fl_Button(x+150,y+150,50,30,"Create");
 //Special part Inputs
 //batteryinputs
 Fl_Int_Input *batPowerInput = new Fl_Int_Input(x+350,y,200,20,"Max Power");
@@ -79,7 +82,9 @@ Fl_Int_Input *maxSpeedInput = new Fl_Int_Input(x+350,y,200,20,"Max Speed");
 //Battery Compartments
 Fl_Int_Input *batCompartmentsInput = new Fl_Int_Input(x+350,y,200,20,"Bat. Slots (max 3)");
 
-//Create Customer Widgets
+//Create Customer Widgets (also used for sales associate)
+Fl_Button *saveCustButton = new Fl_Button(x+150,y+150,50,30,"Create");
+Fl_Button *saveSAButton = new Fl_Button(x+150,y+150,50,30,"Create");
 
 ///////////////////////MISC METHODS
 void toggleView(list<Fl_Widget*> ws, int isOn){
@@ -89,6 +94,13 @@ void toggleView(list<Fl_Widget*> ws, int isOn){
     } else {
       w->hide();
     }
+  }
+}
+
+void toggleEnable(list<Fl_Widget*> ws, int isOn){
+  for(Fl_Widget* w:ws){
+    w = (Fl_Input*) w;
+    //w->readonly(isOn);
   }
 }
 
@@ -109,6 +121,7 @@ void addToAll(list<Fl_Widget*> toAdd){
 }
 
 void setDefaults(){
+  toggleEnable(cPartInputs, ON);
   nameInput->value("DefaultName");
   pNumInput->value("1");
   weightInput->value("1");
@@ -133,40 +146,53 @@ void saveInfo_CB(Fl_Widget *wid, void* p){
   weight = atof(weightInput->value());
   cost = atof(costInput->value());
   desc = descInput->value();
-  max_power = atof(batPowerInput->value());
-  max_speed = atof(maxSpeedInput->value());
-  bat_comp = atoi(batCompartmentsInput->value());
   type = PartType(currentPartType);
 
   switch(currentPartType){
       case(1):{
-          //Arm
           shop.add_part(new Arm(name,id,type,weight,cost,desc));
           break;
       }
       case(2):{
-          //battery
+          max_power = atof(batPowerInput->value());
           shop.add_part(new Battery(name,id,type,weight,cost,desc,max_power));
           break;
       }
       case(3):{
-          //head
           shop.add_part(new Head(name,id,type,weight,cost,desc));
           break;
       }
       case(4):{
-          //locomotor
+          max_speed = atof(maxSpeedInput->value());
           shop.add_part(new Locomotor(name,id,type,weight,cost,desc,max_speed));
           break;
       }
       case(5):{
-          //torso
+          bat_comp = atoi(batCompartmentsInput->value());
           shop.add_part(new Torso(name,id,type,weight,cost,desc,bat_comp));
           break;
       }
   }
   toggleView(activeInputs,0);
   toggleView(cPartView,0);
+}
+
+void saveCust_CB(Fl_Widget *w, void* p){
+  string name;
+
+  name = nameInput->value();
+
+  shop.add_customer(name);
+  toggleView(allWidgets,0);
+}
+
+void saveSA_CB(Fl_Widget *w, void* p){
+  string name;
+
+  name = nameInput->value();
+
+  shop.add_associate(name);
+  toggleView(allWidgets,0);
 }
 
 ///////////////////////CREATE MENU CALLBACKS
@@ -215,22 +241,6 @@ void createPart_CB(Fl_Widget *w, void* p){
    }
 }
 
-void createTorso_CB(Fl_Widget *w, void* p){
-
-}
-
-void createBattery_CB(Fl_Widget *w, void* p){
-
-}
-
-void createArm_CB(Fl_Widget *w, void* p){
-
-}
-
-void createLocomotor_CB(Fl_Widget *w, void* p){
-
-}
-
 //Create Robot callback
 void createRobot_CB(Fl_Widget *w, void* p){
 
@@ -238,27 +248,47 @@ void createRobot_CB(Fl_Widget *w, void* p){
 
 //Create Sales Associate Callback
 void createSA_CB(Fl_Widget *w, void* p){
-
+  setDefaults();
+  toggleView(allWidgets,0);
+  activeInputs.clear();
+  addToActive(cSAInputs);
+  saveSAButton->show();
+  toggleView(cSAInputs,1);
 }
 
 //create Customer Callback
 void createCustomer_CB(Fl_Widget *w, void* p){
+  setDefaults();
+  toggleView(allWidgets,0);
+  activeInputs.clear();
+  addToActive(cCustInputs);
+  saveCustButton->show();
+  toggleView(cCustInputs,1);
+}
 
+///////////////////////REPORT MENU CALLBACKS
+//Part Report CALLBACKS
+void reportParts_CB(Fl_Widget *w, void* p){
+  int part_type = *((int*)p);
+  vector<Part*> allParts = shop.get_parts(part_type);
+  for(Part* p:allParts){
+    cout << p->to_string();
+  }
 }
 
 int main(){
   //create Main Screen
-  int narm=1,nbat=2,nhead=3,nloco=4,ntorso=5;
+  int nall=0,narm=1,nbat=2,nhead=3,nloco=4,ntorso=5;
   menu->add("File/Quit",   FL_CTRL+'q', Quit_CB);
   menu->add("Create/Part/Arm","+a",createPart_CB, &narm);
   menu->add("Create/Part/Battery","+b",createPart_CB, &nbat);
-  menu->add("Create/Part/Head","+h",createPart_CB,(void*) &nhead);
+  menu->add("Create/Part/Head","+h",createPart_CB, &nhead);
   menu->add("Create/Part/Locomotor","+l",createPart_CB, &nloco);
   menu->add("Create/Part/Torso","+t",createPart_CB, &ntorso);
-  menu->add("Create/Robot",FL_CTRL+'r', createRobot_CB);
-  menu->add("Create/Sales Associate",FL_CTRL+'s', createSA_CB);
-  menu->add("Create/Customer",FL_CTRL+'c', createCustomer_CB);
-  menu->add("Reports/Part");
+  menu->add("Create/Robot","+r", createRobot_CB);
+  menu->add("Create/Sales Associate","+s", createSA_CB);
+  menu->add("Create/Customer","+c", createCustomer_CB);
+  menu->add("Reports/Parts/All",FL_CTRL+'a', reportParts_CB, &nall);
 
   //////////Initiate part screen
   //add parts to group list handles
@@ -278,16 +308,29 @@ int main(){
   batPowerInput->hide();
   maxSpeedInput->hide();
   batCompartmentsInput->hide();
-  toggleView(cPartView, 0);
+
+  //////////Initiate create Customer screen
+  //add parts to group list handles
+  cCustInputs.push_back(nameInput);
+  saveCustButton->callback(saveCust_CB);
+
+  //////////Initiate create SA screen
+  //add parts to group list handles
+  cSAInputs.push_back(nameInput);
+  saveSAButton->callback(saveSA_CB);
 
   /////////////////set global list
   addToAll(cPartView);
+  addToAll(cCustInputs);
+  allWidgets.push_back(saveCustButton);
+  allWidgets.push_back(saveSAButton);
   allWidgets.push_back(batPowerInput);
   allWidgets.push_back(maxSpeedInput);
   allWidgets.push_back(batCompartmentsInput);
 
 
 
+  toggleView(allWidgets,0);
   win->end();
   win->show();
 
