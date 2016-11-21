@@ -289,7 +289,12 @@ int main(){
   menu->add("Create/Sales Associate","+s", createSA_CB);
   menu->add("Create/Customer","+c", createCustomer_CB);
   menu->add("Reports/Parts/All",FL_CTRL+'a', reportParts_CB, &nall);
-
+  menu->add("Reports/Parts/Arms",FL_CTRL+'a', reportParts_CB, &narm);
+  menu->add("Reports/Parts/Batteries",FL_CTRL+'a', reportParts_CB, &nbat);
+  menu->add("Reports/Parts/Heads",FL_CTRL+'a', reportParts_CB, &nhead);
+  menu->add("Reports/Parts/Locomotors",FL_CTRL+'a', reportParts_CB, &nloco);
+  menu->add("Reports/Parts/Torso",FL_CTRL+'a', reportParts_CB, &ntorso);
+  
   //////////Initiate part screen
   //add parts to group list handles
   cPartView.push_back(nameInput);
