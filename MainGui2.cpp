@@ -38,6 +38,7 @@
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Browser.H>
 #include <FL/Fl_Select_Browser.H>
+#include <FL/Fl_Choice.H>
 
 //c++ libs
 #include <iostream>
@@ -66,6 +67,9 @@ list<Fl_Widget*> activeInputs;
 list<Fl_Widget*> cCustInputs;
 list<Fl_Widget*> cSAInputs;
 list<Fl_Widget*> reportWidgets;
+list<Fl_Widget*> cRobotChoices;
+list<Fl_Widget*> cRobotInput;
+list<Fl_Widget*> cRobotView;
 
 /////////////Create Part Widgets
 //group drawing zero
@@ -93,6 +97,17 @@ Fl_Button *saveSAButton = new Fl_Button(x+150,y+150,50,30,"Create");
 //group drawing zero
 Fl_Select_Browser* reportBrowser = new Fl_Select_Browser(x+700,y,200,400,"Select Entity");
 Fl_Input *numDisplay = new Fl_Input(x,y+30,200,20,"Number");
+
+/////////////Report Robot Widgets
+Fl_Choice* headChoice = new Fl_Choice(x, y+180, 200, 20, "Head");
+Fl_Choice* torsoChoice = new Fl_Choice(x, y+210, 200, 20, "Torso");
+Fl_Choice* arm1Choice = new Fl_Choice(x, y+240, 200, 20, "Left Arm");
+Fl_Choice* arm2Choice = new Fl_Choice(x+350, y+240, 200, 20, "Right Arm");
+Fl_Choice* locChoice = new Fl_Choice(x, y+270, 200, 20, "Locomotor");
+Fl_Choice* bat1Choice = new Fl_Choice(x, y+300, 200, 20, "Battery 1");
+Fl_Choice* bat2Choice = new Fl_Choice(x+350, y+300, 200, 20, "Battery 2");
+Fl_Choice* bat3Choice = new Fl_Choice(x+700, y+300, 200, 20, "Battery 3");
+Fl_Button* saveRobotButton = new Fl_Button(x+800,y+330,100,20,"Create Robot");
 
 ///////////////////////MISC METHODS
 void toggleView(list<Fl_Widget*> ws, int isOn){
@@ -250,9 +265,42 @@ void createPart_CB(Fl_Widget *w, void* p){
    }
    toggleReadOnly(OFF);
 }
+void choice_CB(Fl_Widget* w, void* p){
 
+}
 //Create Robot callback
 void createRobot_CB(Fl_Widget *w, void* p){
+  toggleView(allWidgets, OFF);
+  toggleView(cRobotView, ON);
+  setDefaults();
+  //populate drop downs:
+  // arm1Choice->add("None");
+  // arm2Choice->add("None");
+  bat2Choice->add("None");
+  bat3Choice->add("None");
+  for(Part* p:shop.get_parts(narm)){
+    string s = p->get_name() + "-" + to_string(p->get_part_number());
+    arm1Choice->add(s.c_str());
+    arm2Choice->add(s.c_str());
+  }
+  for(Part* p:shop.get_parts(nbat)){
+    string s = p->get_name() + "-" + to_string(p->get_part_number());
+    bat1Choice->add(s.c_str());
+    bat2Choice->add(s.c_str());
+    bat3Choice->add(s.c_str());
+  }
+  for(Part* p:shop.get_parts(nloco)){
+    string s = p->get_name() + "-" + to_string(p->get_part_number());
+    locChoice->add(s.c_str());
+  }
+  for(Part* p:shop.get_parts(ntorso)){
+    string s = p->get_name() + "-" + to_string(p->get_part_number());
+    torsoChoice->add(s.c_str());
+  }
+  for(Part* p:shop.get_parts(nhead)){
+    string s = p->get_name() + "-" + to_string(p->get_part_number());
+    headChoice->add(s.c_str());
+  }
 
 }
 
@@ -260,7 +308,7 @@ void createRobot_CB(Fl_Widget *w, void* p){
 void createSA_CB(Fl_Widget *w, void* p){
   setDefaults();
   toggleReadOnly(OFF);
-  toggleView(allWidgets,0);
+  toggleView(allWidgets,OFF);
   activeInputs.clear();
   addToActive(cSAInputs);
   saveSAButton->show();
@@ -461,6 +509,31 @@ int main(){
   maxSpeedInput->hide();
   batCompartmentsInput->hide();
 
+  //////////Initiate create Robot screen
+  cRobotView.push_back(nameInput);
+  cRobotView.push_back(pNumInput);
+  cRobotView.push_back(costInput);
+  cRobotInput.push_back(nameInput);
+  cRobotInput.push_back(pNumInput);
+  cRobotInput.push_back(costInput);
+  cRobotView.push_back(headChoice);
+  cRobotView.push_back(torsoChoice);
+  cRobotView.push_back(arm1Choice);
+  cRobotView.push_back(arm2Choice);
+  cRobotView.push_back(locChoice);
+  cRobotView.push_back(bat1Choice);
+  cRobotView.push_back(bat2Choice);
+  cRobotView.push_back(bat3Choice);
+  cRobotChoices.push_back(headChoice);
+  cRobotChoices.push_back(torsoChoice);
+  cRobotChoices.push_back(arm1Choice);
+  cRobotChoices.push_back(arm2Choice);
+  cRobotChoices.push_back(locChoice);
+  cRobotChoices.push_back(bat1Choice);
+  cRobotChoices.push_back(bat2Choice);
+  cRobotChoices.push_back(bat3Choice);
+  cRobotView.push_back(saveRobotButton);
+
   //////////Initiate create Customer screen
   //add parts to group list handles
   cCustInputs.push_back(nameInput);
@@ -478,6 +551,7 @@ int main(){
   /////////////////set global list
   addToAll(cPartView);
   addToAll(cCustInputs);
+  addToAll(cRobotView);
   allWidgets.push_back(saveCustButton);
   allWidgets.push_back(saveSAButton);
   allWidgets.push_back(batPowerInput);
