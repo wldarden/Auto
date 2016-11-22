@@ -218,6 +218,9 @@ void saveSA_CB(Fl_Widget *w, void* p){
   toggleView(allWidgets,0);
 }
 
+void saveRobotButton_CB(Fl_Widget* w, void* p){
+  toggleView(allWidgets,0);
+}
 ///////////////////////CREATE MENU CALLBACKS
 //Create Part CallBacks
 void createPart_CB(Fl_Widget *w, void* p){
@@ -533,7 +536,8 @@ int main(){
   cRobotChoices.push_back(bat2Choice);
   cRobotChoices.push_back(bat3Choice);
   cRobotView.push_back(saveRobotButton);
-
+  //create robot callbacks
+  saveRobotButton->callback(saveRobotButton_CB);
   //////////Initiate create Customer screen
   //add parts to group list handles
   cCustInputs.push_back(nameInput);

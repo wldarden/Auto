@@ -1,6 +1,22 @@
 				*******************************
 					  Auto Guide
 				*******************************
+=====================
+COMPILING AND RUNNING
+=====================
+Use
 
-Auto Guide uses the principle of least astonishment in everything but the guide so it should be self-explanatory other than this part.
- 
+g++ -std=c++11 MainGUI2.cpp Shop.cpp Robot.cpp Part.cpp Arm.cpp Battery.cpp Head.cpp Locomotor.cpp Torso.cpp Customer.cpp Associate.cpp Order.cpp -lfltk
+
+to compile the program. then run it with 
+
+./a.out
+
+=====
+USING
+=====
+=======CREATE========
+The create menu allows the user to create a part, customer, sales associate, or robot model. All create menu items have a shortcut of the format SHIFT+”letter”. for example, creating a (B)battery is SHIFT+B, and creating an (A)rm part is SHIFT+A. When the input Boxes are displayed enter the information and then click the Create button. The Data is not saved until you click create, so make sure to do that!
+
+======REPORT=========
+The report menu provides a way to view previously created parts, customers, associates, and robot models. All report menu items have a shortcut of the format CTRL+”letter”. for example, the (B)battery report is CTRL+B, and the (A)rm report is CTRL+A.Select an Entity from the List and it will be displayed in the window. 
